@@ -1,0 +1,14 @@
+#!/bin/bash
+path=`pwd`
+find ./biorob-rl-communication-lib/ | grep '.py$' | xargs perl -pi -e "s|__GLOBALPATH__|$path|g"
+find ./gym/envs/webots/webots_env.py | xargs perl -pi -e "s|__GLOBALPATH__|$path|g"
+find ./webots_communication_toolbox/controllers/ | grep '.py$' | xargs perl -pi -e "s|__GLOBALPATH__|$path|g"
+
+sudo cp biorob-rl-tools/webotsNoStop /usr/local/bin/webotsNoStop
+sudo chmod +x /usr/local/bin/webotsNoStop
+
+ln -sf $path/gym/envs/webots $CONDA_PREFIX/lib/python3.6/site-packages/gym/envs/
+cp $CONDA_PREFIX/lib/python3.6/site-packages/gym/envs/__init__.py $CONDA_PREFIX/lib/python3.6/site-packages/gym/envs/__init__.py.save
+cp $path/gym/envs/__init__.py $CONDA_PREFIX/lib/python3.6/site-packages/gym/envs/
+
+echo "If this is the only line then everything run smooth"

@@ -1,0 +1,853 @@
+#VRML_SIM V8.6 utf8
+WorldInfo {
+  info [
+    "Simulation of the YAMOR modular robot (BIRG)."
+    "The YAMOR robot goes through a sequence of module deconnections and reconnections while demonstrating two different types of locomotion."
+    "Biologically Inspired Robotics Group (BIRG)"
+    "Swiss Federal Institute of Technology (EPFL), Lausanne"
+    ""
+    "Publication:"
+    "R. Moeckel, C. Jaquier, K. Drapel, E. Dittrich, A. Upegui, and A.J. Ijspeert."
+    "Exploring adaptive locomotion with YaMoR, a novel autonomous modular robot with Bluetooth interface."
+    "Industrial Robot, 33(4):285-290, 2006."
+  ]
+  title "Modular Robot"
+  basicTimeStep 8
+  contactProperties [
+    ContactProperties {
+      coulombFriction [
+        0.5
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.095092636 0.97196436 0.21504108 3.95723
+  position -0.98799095 0.67726778 -0.70419626
+  follow "module_4"
+}
+Background {
+  skyColor [
+    0.4 0.7 1
+  ]
+}
+DirectionalLight {
+  ambientIntensity 1
+  direction 1.2 -0.7 -0.5
+  castShadows TRUE
+}
+Floor {
+  size 100 100
+}
+DEF BRAIN Supervisor {
+  translation 0.1 0 0.1
+  children [
+    Emitter {
+    }
+  ]
+  controller "yamorBrainConnector"
+}
+DEF MODULE_1 Robot {
+  translation -2.6218975e-07 0.030199215 -3.5477439e-07
+  rotation -3.1349316e-06 8.6349496e-06 1 1.5707985
+  children [
+    Receiver {
+    }
+    DEF BODY_GROUP Group {
+      children [
+        DEF BOX_SHAPE Shape {
+          appearance DEF PLASTIC Appearance {
+            material Material {
+              diffuseColor 0 1 0
+            }
+          }
+          geometry Box {
+            size 0.054 0.0482 0.06
+          }
+        }
+        DEF CYLINDER_TRANS Transform {
+          translation 0 0 -0.03
+          children [
+            Shape {
+              appearance USE PLASTIC
+              geometry Cylinder {
+                height 0.0482
+                radius 0.027
+              }
+            }
+          ]
+        }
+      ]
+    }
+    DEF REAR_CONNECTOR Connector {
+      translation 0 0 0.03
+      children [
+        DEF ROUND_SHAPE Transform {
+          rotation 1 0 0 1.5708
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 1 1 1
+                }
+              }
+              geometry Cylinder {
+                height 0.0005
+                radius 0.0075
+              }
+            }
+          ]
+        }
+      ]
+      name "rear_connector"
+      isLocked TRUE
+      distanceTolerance 0.05
+      axisTolerance 0.5
+      rotationTolerance 0.5
+    }
+    DEF HINGE_JOINT HingeJoint {
+      jointParameters HingeJointParameters {
+        position 3.63121e-10
+        axis 0 1 0
+        anchor 0 0 -0.03
+      }
+      device [
+        RotationalMotor {
+          name "motor"
+          maxVelocity 3.9667
+          minPosition -1.5708
+          maxPosition 1.5708
+          maxTorque 1.1
+        }
+      ]
+      endPoint Solid {
+        translation -2.6899464e-08 -4.5735371e-12 -0.03
+        rotation -0.00023131114 0.99999997 9.7841183e-06 3.6312194e-10
+        children [
+          DEF GRAY_BOX_TRANS Transform {
+            translation 0 0 -0.0135
+            children [
+              Shape {
+                appearance Appearance {
+                  material Material {
+                    diffuseColor 0.752941 0.752941 0.752941
+                  }
+                }
+                geometry Box {
+                  size 0.015 0.0612 0.047
+                }
+              }
+            ]
+          }
+          DEF FRONT_CONNECTOR Connector {
+            translation 0 0 -0.037
+            rotation 0 1 0 3.1416
+            children [
+              USE ROUND_SHAPE
+            ]
+            name "front_connector"
+            isLocked TRUE
+            distanceTolerance 0.05
+            axisTolerance 0.5
+            rotationTolerance 0.5
+          }
+        ]
+        boundingObject USE GRAY_BOX_TRANS
+        physics Physics {
+          density -1
+          mass 0.016
+        }
+        linearVelocity -2.8164421e-05 0.011161261 -1.8684056e-05
+        angularVelocity -0.00061987061 0.00030507786 -7.0208479e-05
+      }
+    }
+  ]
+  name "module_1"
+  boundingObject USE BODY_GROUP
+  physics DEF BODY_PHYSICS Physics {
+    density -1
+    mass 0.17
+  }
+  controller "yamor"
+  linearVelocity -1.8683632e-05 0.011182043 -1.8684085e-05
+  angularVelocity -0.0006198501 0.00030507786 -7.0208479e-05
+}
+DEF MODULE_2 Robot {
+  translation -2.0237245e-08 0.03020026 0.096999666
+  rotation 0.97145252 -0.2370279 0.0098877645 -1.2080166e-05
+  children [
+    Receiver {
+    }
+    USE BODY_GROUP
+    DEF REAR_CONNECTOR Connector {
+      translation 0 0 0.03
+      children [
+        DEF ROUND_SHAPE Transform {
+          rotation 1 0 0 1.5708
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 1 1 1
+                }
+              }
+              geometry Cylinder {
+                height 0.0005
+                radius 0.0075
+              }
+            }
+          ]
+        }
+      ]
+      name "rear_connector"
+      isLocked TRUE
+      distanceTolerance 0.05
+      axisTolerance 0.5
+      rotationTolerance 0.5
+    }
+    DEF HINGE_JOINT HingeJoint {
+      jointParameters HingeJointParameters {
+        position -1.77974e-08
+        axis 0 1 0
+        anchor 0 0 -0.03
+      }
+      device [
+        RotationalMotor {
+          name "motor"
+          maxVelocity 3.9667
+          minPosition -1.5708
+          maxPosition 1.5708
+          maxTorque 1.1
+        }
+      ]
+      endPoint Solid {
+        translation 1.1456412e-07 3.7356929e-07 -0.030000021
+        rotation 0.87053675 0.45097901 -0.19693579 -1.779686e-08
+        children [
+          DEF GRAY_BOX_TRANS Transform {
+            translation 0 0 -0.0135
+            children [
+              Shape {
+                appearance Appearance {
+                  material Material {
+                    diffuseColor 0.752941 0.752941 0.752941
+                  }
+                }
+                geometry Box {
+                  size 0.015 0.0612 0.047
+                }
+              }
+            ]
+          }
+          DEF FRONT_CONNECTOR Connector {
+            translation 0 0 -0.037
+            rotation 0 1 0 3.1416
+            children [
+              USE ROUND_SHAPE
+            ]
+            name "front_connector"
+            isLocked TRUE
+            distanceTolerance 0.05
+            axisTolerance 0.5
+            rotationTolerance 0.5
+          }
+        ]
+        boundingObject USE GRAY_BOX_TRANS
+        physics Physics {
+          density -1
+          mass 0.016
+        }
+        linearVelocity -2.0227422e-06 0.011236264 -1.8638332e-05
+        angularVelocity -0.00061893253 0.00015815114 2.5258724e-06
+      }
+    }
+  ]
+  name "module_2"
+  boundingObject USE BODY_GROUP
+  physics USE BODY_PHYSICS
+  controller "yamor"
+  linearVelocity -3.8214893e-06 0.011234346 -1.7432557e-05
+  angularVelocity -0.0006180606 0.00015860185 2.3201672e-06
+}
+DEF MODULE_3 Robot {
+  translation 4.1782096e-08 0.030201082 0.19399971
+  rotation -3.0936434e-06 5.9918265e-06 1 1.5707985
+  children [
+    Receiver {
+    }
+    USE BODY_GROUP
+    DEF REAR_CONNECTOR Connector {
+      translation 0 0 0.03
+      children [
+        DEF ROUND_SHAPE Transform {
+          rotation 1 0 0 1.5708
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 1 1 1
+                }
+              }
+              geometry Cylinder {
+                height 0.0005
+                radius 0.0075
+              }
+            }
+          ]
+        }
+      ]
+      name "rear_connector"
+      isLocked TRUE
+      distanceTolerance 0.05
+      axisTolerance 0.5
+      rotationTolerance 0.5
+    }
+    DEF HINGE_JOINT HingeJoint {
+      jointParameters HingeJointParameters {
+        position 1.95973e-08
+        axis 0 1 0
+        anchor 0 0 -0.03
+      }
+      device [
+        RotationalMotor {
+          name "motor"
+          maxVelocity 3.9667
+          minPosition -1.5708
+          maxPosition 1.5708
+          maxTorque 1.1
+        }
+      ]
+      endPoint Solid {
+        translation 6.0722073e-08 -1.1457068e-07 -0.030000021
+        rotation -0.97667203 0.11884823 0.17884868 1.9596576e-08
+        children [
+          DEF GRAY_BOX_TRANS Transform {
+            translation 0 0 -0.0135
+            children [
+              Shape {
+                appearance Appearance {
+                  material Material {
+                    diffuseColor 0.752941 0.752941 0.752941
+                  }
+                }
+                geometry Box {
+                  size 0.015 0.0612 0.047
+                }
+              }
+            ]
+          }
+          DEF FRONT_CONNECTOR Connector {
+            translation 0 0 -0.037
+            rotation 0 1 0 3.1416
+            children [
+              USE ROUND_SHAPE
+            ]
+            name "front_connector"
+            isLocked TRUE
+            distanceTolerance 0.05
+            axisTolerance 0.5
+            rotationTolerance 0.5
+          }
+        ]
+        boundingObject USE GRAY_BOX_TRANS
+        physics Physics {
+          density -1
+          mass 0.016
+        }
+        linearVelocity 1.4325711e-06 0.011267845 -1.6575533e-05
+        angularVelocity -0.00047100688 0.00015937605 -7.0712406e-05
+      }
+    }
+  ]
+  name "module_3"
+  boundingObject USE BODY_GROUP
+  physics USE BODY_PHYSICS
+  controller "yamor"
+  linearVelocity -3.1680255e-07 0.011278998 -1.5368225e-05
+  angularVelocity -0.0004708831 0.00016047873 -7.0918111e-05
+}
+DEF MODULE_4 Robot {
+  translation 4.453613e-08 0.030201775 0.29099974
+  rotation 0.99931932 -0.034025323 0.014254086 -9.0666937e-06
+  children [
+    Receiver {
+    }
+    USE BODY_GROUP
+    DEF REAR_CONNECTOR Connector {
+      translation 0 0 0.03
+      children [
+        DEF ROUND_SHAPE Transform {
+          rotation 1 0 0 1.5708
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 1 1 1
+                }
+              }
+              geometry Cylinder {
+                height 0.0005
+                radius 0.0075
+              }
+            }
+          ]
+        }
+      ]
+      name "rear_connector"
+      isLocked TRUE
+      distanceTolerance 0.05
+      axisTolerance 0.5
+      rotationTolerance 0.5
+    }
+    DEF HINGE_JOINT HingeJoint {
+      jointParameters HingeJointParameters {
+        position -3.1265e-08
+        axis 0 1 0
+        anchor 0 0 -0.03
+      }
+      device [
+        RotationalMotor {
+          name "motor"
+          maxVelocity 3.9667
+          minPosition -1.5708
+          maxPosition 1.5708
+          maxTorque 1.1
+        }
+      ]
+      endPoint Solid {
+        translation 8.6649792e-10 3.8735173e-07 -0.030000021
+        rotation 0.34022491 0.94034373 -0.00082617575 -3.1262291e-08
+        children [
+          DEF GRAY_BOX_TRANS Transform {
+            translation 0 0 -0.0135
+            children [
+              Shape {
+                appearance Appearance {
+                  material Material {
+                    diffuseColor 0.752941 0.752941 0.752941
+                  }
+                }
+                geometry Box {
+                  size 0.015 0.0612 0.047
+                }
+              }
+            ]
+          }
+          DEF FRONT_CONNECTOR Connector {
+            translation 0 0 -0.037
+            rotation 0 1 0 3.1416
+            children [
+              USE ROUND_SHAPE
+            ]
+            name "front_connector"
+            isLocked TRUE
+            distanceTolerance 0.05
+            axisTolerance 0.5
+            rotationTolerance 0.5
+          }
+        ]
+        boundingObject USE GRAY_BOX_TRANS
+        physics Physics {
+          density -1
+          mass 0.016
+        }
+        linearVelocity 1.6213277e-06 0.011319568 -1.4381635e-05
+        angularVelocity -0.00047021014 1.4830912e-05 1.7967419e-06
+      }
+    }
+  ]
+  name "module_4"
+  boundingObject USE BODY_GROUP
+  physics USE BODY_PHYSICS
+  controller "yamor"
+  linearVelocity 2.0954773e-06 0.011312333 -1.3145613e-05
+  angularVelocity -0.00046962254 1.6531184e-05 1.7962146e-06
+}
+DEF MODULE_5 Robot {
+  translation 7.5016614e-08 0.030202313 0.38799978
+  rotation -3.0289698e-06 3.3932564e-06 1 1.5707985
+  children [
+    Receiver {
+    }
+    USE BODY_GROUP
+    DEF REAR_CONNECTOR Connector {
+      translation 0 0 0.03
+      children [
+        DEF ROUND_SHAPE Transform {
+          rotation 1 0 0 1.5708
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 1 1 1
+                }
+              }
+              geometry Cylinder {
+                height 0.0005
+                radius 0.0075
+              }
+            }
+          ]
+        }
+      ]
+      name "rear_connector"
+      isLocked TRUE
+      distanceTolerance 0.05
+      axisTolerance 0.5
+      rotationTolerance 0.5
+    }
+    DEF HINGE_JOINT HingeJoint {
+      jointParameters HingeJointParameters {
+        position -2.97321e-08
+        axis 0 1 0
+        anchor 0 0 -0.03
+      }
+      device [
+        RotationalMotor {
+          name "motor"
+          maxVelocity 3.9667
+          minPosition -1.5708
+          maxPosition 1.5708
+          maxTorque 1.1
+        }
+      ]
+      endPoint Solid {
+        translation 7.4361429e-08 -8.6272985e-10 -0.030000021
+        rotation 0.99156448 0.12961147 -0.0008701668 -2.9731896e-08
+        children [
+          DEF GRAY_BOX_TRANS Transform {
+            translation 0 0 -0.0135
+            children [
+              Shape {
+                appearance Appearance {
+                  material Material {
+                    diffuseColor 0.752941 0.752941 0.752941
+                  }
+                }
+                geometry Box {
+                  size 0.015 0.0612 0.047
+                }
+              }
+            ]
+          }
+          DEF FRONT_CONNECTOR Connector {
+            translation 0 0 -0.037
+            rotation 0 1 0 3.1416
+            children [
+              USE ROUND_SHAPE
+            ]
+            name "front_connector"
+            isLocked TRUE
+            distanceTolerance 0.05
+            axisTolerance 0.5
+            rotationTolerance 0.5
+          }
+        ]
+        boundingObject USE GRAY_BOX_TRANS
+        physics Physics {
+          density -1
+          mass 0.016
+        }
+        linearVelocity 3.2001193e-06 0.011335526 -1.213077e-05
+        angularVelocity -0.00032283136 1.7835923e-05 -7.1124998e-05
+      }
+    }
+  ]
+  name "module_5"
+  boundingObject USE BODY_GROUP
+  physics USE BODY_PHYSICS
+  controller "yamor"
+  linearVelocity 3.7674735e-06 0.011341371 -1.0893469e-05
+  angularVelocity -0.00032306051 1.9537823e-05 -7.1125523e-05
+}
+DEF MODULE_6 Robot {
+  translation 3.2343127e-08 0.030202771 0.48499982
+  rotation 0.94427452 0.32863278 0.01860475 -6.7888321e-06
+  children [
+    Receiver {
+    }
+    USE BODY_GROUP
+    DEF REAR_CONNECTOR Connector {
+      translation 0 0 0.03
+      children [
+        DEF ROUND_SHAPE Transform {
+          rotation 1 0 0 1.5708
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 1 1 1
+                }
+              }
+              geometry Cylinder {
+                height 0.0005
+                radius 0.0075
+              }
+            }
+          ]
+        }
+      ]
+      name "rear_connector"
+      isLocked TRUE
+      distanceTolerance 0.05
+      axisTolerance 0.5
+      rotationTolerance 0.5
+    }
+    DEF HINGE_JOINT HingeJoint {
+      jointParameters HingeJointParameters {
+        position -2.35423e-08
+        axis 0 1 0
+        anchor 0 0 -0.03
+      }
+      device [
+        RotationalMotor {
+          name "motor"
+          maxVelocity 3.9667
+          minPosition -1.5708
+          maxPosition 1.5708
+          maxTorque 1.1
+        }
+      ]
+      endPoint Solid {
+        translation -9.8063336e-08 3.5255e-07 -0.030000021
+        rotation 0.16569629 0.97790404 0.12746932 -2.3540282e-08
+        children [
+          DEF GRAY_BOX_TRANS Transform {
+            translation 0 0 -0.0135
+            children [
+              Shape {
+                appearance Appearance {
+                  material Material {
+                    diffuseColor 0.752941 0.752941 0.752941
+                  }
+                }
+                geometry Box {
+                  size 0.015 0.0612 0.047
+                }
+              }
+            ]
+          }
+          DEF FRONT_CONNECTOR Connector {
+            translation 0 0 -0.037
+            rotation 0 1 0 3.1416
+            children [
+              USE ROUND_SHAPE
+            ]
+            name "front_connector"
+            isLocked TRUE
+            distanceTolerance 0.05
+            axisTolerance 0.5
+            rotationTolerance 0.5
+          }
+        ]
+        boundingObject USE GRAY_BOX_TRANS
+        physics Physics {
+          density -1
+          mass 0.016
+        }
+        linearVelocity 1.6034842e-06 0.011371686 -9.8776601e-06
+        angularVelocity -0.00032269989 -0.00012608373 1.7962301e-06
+      }
+    }
+  ]
+  name "module_6"
+  boundingObject USE BODY_GROUP
+  physics USE BODY_PHYSICS
+  controller "yamor"
+  linearVelocity 3.4960543e-06 0.011361901 -8.6512866e-06
+  angularVelocity -0.00032249228 -0.00012474593 1.9733212e-06
+}
+DEF MODULE_7 Robot {
+  translation 2.5904572e-09 0.030203118 0.58199986
+  rotation -2.9916308e-06 7.8735199e-07 1 1.5707985
+  children [
+    Receiver {
+    }
+    USE BODY_GROUP
+    DEF REAR_CONNECTOR Connector {
+      translation 0 0 0.03
+      children [
+        DEF ROUND_SHAPE Transform {
+          rotation 1 0 0 1.5708
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 1 1 1
+                }
+              }
+              geometry Cylinder {
+                height 0.0005
+                radius 0.0075
+              }
+            }
+          ]
+        }
+      ]
+      name "rear_connector"
+      isLocked TRUE
+      distanceTolerance 0.05
+      axisTolerance 0.5
+      rotationTolerance 0.5
+    }
+    DEF HINGE_JOINT HingeJoint {
+      jointParameters HingeJointParameters {
+        position -1.56011e-08
+        axis 0 1 0
+        anchor 0 0 -0.03
+      }
+      device [
+        RotationalMotor {
+          name "motor"
+          maxVelocity 3.9667
+          minPosition -1.5708
+          maxPosition 1.5708
+          maxTorque 1.1
+        }
+      ]
+      endPoint Solid {
+        translation 3.9469103e-08 9.8069055e-08 -0.030000021
+        rotation 0.86580771 0.46193498 0.19233586 -1.560092e-08
+        children [
+          DEF GRAY_BOX_TRANS Transform {
+            translation 0 0 -0.0135
+            children [
+              Shape {
+                appearance Appearance {
+                  material Material {
+                    diffuseColor 0.752941 0.752941 0.752941
+                  }
+                }
+                geometry Box {
+                  size 0.015 0.0612 0.047
+                }
+              }
+            ]
+          }
+          DEF FRONT_CONNECTOR Connector {
+            translation 0 0 -0.037
+            rotation 0 1 0 3.1416
+            children [
+              USE ROUND_SHAPE
+            ]
+            name "front_connector"
+            isLocked TRUE
+            distanceTolerance 0.05
+            axisTolerance 0.5
+            rotationTolerance 0.5
+          }
+        ]
+        boundingObject USE GRAY_BOX_TRANS
+        physics Physics {
+          density -1
+          mass 0.016
+        }
+        linearVelocity -2.4827421e-07 0.011376966 -7.6461013e-06
+        angularVelocity -0.00017585885 -0.00012409099 -7.069224e-05
+      }
+    }
+  ]
+  name "module_7"
+  boundingObject USE BODY_GROUP
+  physics USE BODY_PHYSICS
+  controller "yamor"
+  linearVelocity 1.6962387e-06 0.011380267 -6.4186753e-06
+  angularVelocity -0.00017627186 -0.00012331454 -7.0515146e-05
+}
+DEF MODULE_8 Robot {
+  translation -3.0047446e-07 0.030203418 0.67899988
+  rotation 0.61370023 0.78930526 0.019215488 -6.1373764e-06
+  children [
+    Receiver {
+    }
+    USE BODY_GROUP
+    DEF REAR_CONNECTOR Connector {
+      translation 0 0 0.03
+      children [
+        DEF ROUND_SHAPE Transform {
+          rotation 1 0 0 1.5708
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 1 1 1
+                }
+              }
+              geometry Cylinder {
+                height 0.0005
+                radius 0.0075
+              }
+            }
+          ]
+        }
+      ]
+      name "rear_connector"
+      isLocked TRUE
+      distanceTolerance 0.05
+      axisTolerance 0.5
+      rotationTolerance 0.5
+    }
+    DEF HINGE_JOINT HingeJoint {
+      jointParameters HingeJointParameters {
+        position -4.9848e-10
+        axis 0 1 0
+        anchor 0 0 -0.03
+      }
+      device [
+        RotationalMotor {
+          name "motor"
+          maxVelocity 3.9667
+          minPosition -1.5708
+          maxPosition 1.5708
+          maxTorque 1.1
+        }
+      ]
+      endPoint Solid {
+        translation -2.3466766e-11 2.8619805e-07 -0.03
+        rotation 0.99999999 0.00014464675 -1.5430067e-06 -5.0304579e-09
+        children [
+          DEF GRAY_BOX_TRANS Transform {
+            translation 0 0 -0.0135
+            children [
+              Shape {
+                appearance Appearance {
+                  material Material {
+                    diffuseColor 0.752941 0.752941 0.752941
+                  }
+                }
+                geometry Box {
+                  size 0.015 0.0612 0.047
+                }
+              }
+            ]
+          }
+          DEF FRONT_CONNECTOR Connector {
+            translation 0 0 -0.037
+            rotation 0 1 0 3.1416
+            children [
+              USE ROUND_SHAPE
+            ]
+            name "front_connector"
+            isLocked TRUE
+            distanceTolerance 0.05
+            axisTolerance 0.5
+            rotationTolerance 0.5
+          }
+        ]
+        boundingObject USE GRAY_BOX_TRANS
+        physics Physics {
+          density -1
+          mass 0.016
+        }
+        linearVelocity -5.3932437e-06 0.011402442 -5.690415e-06
+        angularVelocity -0.00017591884 -0.00027002286 2.4259125e-06
+      }
+    }
+  ]
+  name "module_8"
+  boundingObject USE BODY_GROUP
+  physics USE BODY_PHYSICS
+  controller "yamor"
+  linearVelocity -1.3785039e-05 0.011391787 -5.6912048e-06
+  angularVelocity -0.00017563559 -0.00027002288 2.4259115e-06
+}

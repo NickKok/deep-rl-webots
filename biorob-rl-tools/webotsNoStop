@@ -1,0 +1,6 @@
+#!/bin/bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/$USER/.local/usr/lib:/usr/local/lib/spinalDynamics
+until false; do
+    /usr/local/bin/webots --batch --mode=fast --minimize --stderr 2>/dev/null $@
+done
+

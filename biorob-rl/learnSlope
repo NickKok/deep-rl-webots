@@ -1,0 +1,14 @@
+#!/bin/bash
+source CONFIG.BASH
+
+folder=learnSlope_log
+
+
+mkdir ${folder} &>/dev/null
+python a3C.py --action-dim=17 \
+              --critic-lr=0.001 \
+              --actor-lr=0.005 \
+              --temporal-window=2 \
+              --world=$world_path/tmp_3D_RL_slope_${1:-5662}.wbt \
+              --n-workers=$n_workers \
+              --save-dir=$folder

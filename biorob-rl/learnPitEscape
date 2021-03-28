@@ -1,0 +1,13 @@
+#!/bin/bash
+folder=learnPitEscape_log
+world_path=/home/florin/Dev/HumanSimulation/humanWebotsNmm/controller_current/webots/worlds
+mkdir learnPitEscape_log &>/dev/null
+python a3C.py --action-dim=17 \
+              --action-repeat=50 \
+              --critic-lr=0.001 \
+              --actor-lr=0.001 \
+              --temporal-window=10 \
+              --world=$world_path/tmp_3D_pitEscape_${1:-5662}.wbt \
+              --n-workers=1 \
+              --save-dir=$folder \
+#              --mode=testing # Comment to learn

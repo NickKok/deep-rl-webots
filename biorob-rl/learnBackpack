@@ -1,0 +1,14 @@
+#!/bin/bash
+
+webotsFolder=/home/florin/Dev/HumanSimulation/humanWebotsNmm/controller_current/webots
+
+folder=learnBackpack_log
+mkdir learnPitEscape_log &>/dev/null
+python a3C.py --action-dim=3 \
+              --action-repeat=50 \
+              --critic-lr=0.001 \
+              --actor-lr=0.005 \
+              --temporal-window=1 \
+              --world=$webotsFolder/worlds/tmp_3D_RL_backpack_${1:-5662}.wbt \
+              --n-workers=10 \
+              --save-dir=$folder

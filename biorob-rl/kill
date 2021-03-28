@@ -1,0 +1,4 @@
+#!/bin/bash
+killall webotsNoStop && killall -9 webots-bin 
+ps aux | grep 'python' | grep 'a3C.py' | awk '{print $2}' | xargs kill -9 &>/dev/null
+ps aux | grep 'regisConnector.py' | awk '{print $2}' | xargs kill -9 &>/dev/null
